@@ -16,15 +16,17 @@
 </template>
 <script>
 import SimgleNode from '@/components/steps/single-node.vue';
+import VueNode from '@/components/steps/vue-node.vue';
 
 export default {
   name: "test",
   components: {
     SimgleNode,
+    VueNode,
   },
   data() {
     return {
-      componentName: "SimgleNode",
+      componentName: "VueNode",
     };
   },
   mounted() {
@@ -32,7 +34,7 @@ export default {
   },
   methods: {
     showLayer(){
-      console.log("asds");
+      // console.log("asds");
     },
     largerCanvas(){
       this.$refs.sids.lf.zoom(true);

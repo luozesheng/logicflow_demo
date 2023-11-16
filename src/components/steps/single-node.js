@@ -1,5 +1,5 @@
 import { HtmlNode, HtmlNodeModel } from "@logicflow/core";
-
+import store from '@/store';
 class SingleNode extends HtmlNode {
   // 重写HtmlNode的setHtml，来控制html节点内容。
   setHtml(rootEl) {
@@ -12,6 +12,16 @@ class SingleNode extends HtmlNode {
       this.props.graphModel.cloneNode(id);
     }, false);
   }
+  componentDidMount(){
+    const { id, properties  } = this.props.model;
+    this.setHtml(this.rootEl);
+    setTimeout(()=>{
+      document.body.addEventListener("click", (e) => {
+        console.log("asdas");
+        store.commit("SET_TEST_NUM");
+      })
+    },200)
+  }
   getCardEl() {
     const { properties, id } = this.props.model;
     const el = document.createElement("div");
@@ -19,9 +29,9 @@ class SingleNode extends HtmlNode {
     if (properties.answers) {
       properties.answers.forEach((answer) => {
         footerFn += `
-          <div class="flow_box_footer_text">
-            ${answer.text}
-          </div>
+            <div class="flow_box_body box_center bg_fef">
+              ${answer.text}
+            </div>
         `;
       });
     }
@@ -29,15 +39,13 @@ class SingleNode extends HtmlNode {
       <div class="flow_box flex_col">
         <div class="flow_box_header flex_row">
           <div class="color_fff box_center">
-            ${properties.title}
+            ${store.state.testNum}
           </div>
           <div id="${id}" class="copy_icon">复制</div>
         </div>
-        <div class="flow_box_body box_center bg_fef">
-          ${properties.content}
-        </div>
+        ${footerFn}
         <div class="flow_box_footer">
-          ${footerFn}
+          下一轮
         </div>
       </div>
     `;
@@ -53,24 +61,6 @@ class SingleNodeModel extends HtmlNodeModel {
     this.text.editable = false;
     this.width = 230;
     this.height = 145;
-    // 定义连接规则，只允许出口节点连接入口节点
-    // const rule = {
-    //   message: "只允许出口节点连接入口节点",
-    //   validate: (sourceNode, targetNode, sourceAnchor, targetAnchor) => {
-    //     console.log(sourceAnchor, targetAnchor)
-    //     return (
-    //       sourceAnchor.type === "sourceAnchor" &&
-    //       targetAnchor.type === "targetAnchor"
-    //     );
-    //   }
-    // };
-    // this.sourceRules.push(rule);
-  }
-  setAttributes() {
-    // const {
-    //   properties: { height }
-    // } = this;
-    // this.height = height;
   }
   /**
    * 计算每个锚点的位置
@@ -86,11 +76,10 @@ class SingleNodeModel extends HtmlNodeModel {
     });
     if (properties.answers) {
       properties.answers.forEach((answer, i) => {
-        // const text = answer.text;
         anchorPositon.push({
           x: x + width/2,
-          y: y + (height/3) + 10,
-          type: "sourceAnchor",
+          y: y*0.6 + 30*i,
+          // type: "sourceAnchor",
           id: answer.id
         });
       });

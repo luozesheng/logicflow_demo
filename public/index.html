@@ -11,6 +11,10 @@
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
+    <script src="https://unpkg.com/mitt/dist/mitt.umd.js"></script>
+    <script>
+      const emitter = mitt()
+    </script>
     <div id="app"></div>
     <!-- <script src="http://0.0.0.0:9099/logic-flow.js"></script> -->
     <!-- built files will be auto injected -->

@@ -1,0 +1,113 @@
+{
+    "nodes": [
+        {
+            "id": "node_id_1",
+            "type": "single-node",
+            "x": 200,
+            "y": 100,
+            "properties": {
+                "title": "触发器",
+                "content": "新访客",
+                "answers": [
+                    {
+                        "id": "1",
+                        "text": "条件1"
+                    },
+                    {
+                        "id": "2",
+                        "text": "条件2"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "node_id_2",
+            "type": "rect",
+            "x": 500,
+            "y": 100,
+            "properties": {}
+        },
+        {
+            "id": "node_id_3",
+            "type": "rect",
+            "x": 500,
+            "y": 100,
+            "properties": {}
+        },
+        {
+            "id": "node_id_1700053284608",
+            "type": "rect",
+            "x": 515,
+            "y": 274,
+            "properties": {}
+        }
+    ],
+    "edges": [
+        {
+            "id": "node_id_1700052871272",
+            "type": "bezier",
+            "sourceNodeId": "node_id_1",
+            "targetNodeId": "node_id_2",
+            "startPoint": {
+                "x": 315,
+                "y": 90
+            },
+            "endPoint": {
+                "x": 450,
+                "y": 100
+            },
+            "properties": {},
+            "pointsList": [
+                {
+                    "x": 315,
+                    "y": 90
+                },
+                {
+                    "x": 415,
+                    "y": 90
+                },
+                {
+                    "x": 350,
+                    "y": 100
+                },
+                {
+                    "x": 450,
+                    "y": 100
+                }
+            ]
+        },
+        {
+            "id": "node_id_1700053364987",
+            "type": "bezier",
+            "sourceNodeId": "node_id_1",
+            "targetNodeId": "node_id_1700053284608",
+            "startPoint": {
+                "x": 315,
+                "y": 60
+            },
+            "endPoint": {
+                "x": 465,
+                "y": 274
+            },
+            "properties": {},
+            "pointsList": [
+                {
+                    "x": 315,
+                    "y": 60
+                },
+                {
+                    "x": 415,
+                    "y": 60
+                },
+                {
+                    "x": 365,
+                    "y": 274
+                },
+                {
+                    "x": 465,
+                    "y": 274
+                }
+            ]
+        }
+    ]
+}

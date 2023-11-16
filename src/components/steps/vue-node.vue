@@ -6,26 +6,26 @@ import { mapState, } from 'vuex'
 import LogicFlow from "@logicflow/core";
 import "@logicflow/core/dist/style/index.css";
 import "@logicflow/extension/lib/style/index.css";
-import SingleNode from "./single-node.js";
+import { registerFlowNode } from '@/components/steps/class/FlowCard';
 
 export default {
-  name: "test",
-  watch:{
-    flowData:{
-      deep: true,
-      immediate: true,
-      handler(val){
-        console.log('节点信息：', val)
-      }
-    },
-  },
+  name: "vueNode",
   data() {
     return {
       lf: {},
     };
   },
+  watch:{
+    testNum:{
+      immediate: true,
+      handler(val){
+        emitter.emit('node:update', val)
+        console.log('+++++++:',this.$events)
+      }
+    },
+  },
   computed: {
-    ...mapState(['flowData']),
+    ...mapState(['flowVueData', 'testNum']),
   },
   mounted() {
     this.init().then(lf => this.addEvents(lf));
@@ -43,8 +43,8 @@ export default {
           backgroundColor: "#eff2f5"
         },
       });
-      lf.register(SingleNode);
-      lf.render(this.flowData);
+      lf.register(registerFlowNode(window.Vue));
+      lf.render(this.flowVueData);
 
       this.lf = lf;
       window.lf = lf;
@@ -53,34 +53,9 @@ export default {
     addEvents(lf){
       const { eventCenter } = lf.graphModel;
       eventCenter.on("node:click", (node) => {
-        console.log("node:click", node);
+        // console.log("node:click", node);
         this.$emit('showLayer', node);
       });
-    },
-    createCustomNode() {
-      // 创建自定义节点
-      this.lf.register('vue-node', {
-        render(h, node) {
-          // 在这里定义节点的渲染内容
-          return h('div', {
-            style: {
-              width: '100px',
-              height: '100px',
-              background: 'blue',
-            },
-            on: {
-              click: () => {
-                // 处理节点点击事件
-              },
-            },
-          }, 'Custom Node');
-        },
-      });
-      this.lf.addNodeType({
-        type: 'vue-node',
-        view: 'vue-node',
-      });
-
     },
   },
 };
